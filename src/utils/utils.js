@@ -50,20 +50,21 @@ export function clearStorageSync() {
 
 /**
  * 页面跳转
- * @param {String} url  转跳路径
- * @param {String} type 转跳方式（navigateTo|redirectTo|reLaunch|switchTab|navigateBack）
- * @param {}
+ * @param {'navigateTo' | 'redirectTo' | 'reLaunch' | 'switchTab' | 'navigateBack' | number } url  转跳路径
+ * @param {String} params 跳转时携带的参数
+ * @param {String} type 转跳方式
  **/
-export function useRouter(url, type = 'navigateTo') {
-	try {
-	    if (type === 'navigateBack') {
-	        uni[type]({ delta: url })
-	    } else {
-	        uni[type]({ url })
-	    }
-	} catch (error) {
-	    console.error(error,'==useRouter')
-	}
+export function useRouter(url, params = {}, type = 'navigateTo') {
+    try {
+        if (Object.keys(params).length) url = `${url}?data=${encodeURIComponent(JSON.stringify(params))}`
+        if (type === 'navigateBack') {
+            uni[type]({ delta: url })
+        } else {
+            uni[type]({ url })
+        }
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 /**
