@@ -2,7 +2,9 @@
 import {toast, clearStorageSync, getStorageSync, useRouter} from './utils'
 import {BASE_URL} from '@/config/index'
 
+
 const baseRequest = async (url, method, data, loading = true) =>{
+	const header = {}
 	header.token = getStorageSync('token') || ''
 	return new Promise((reslove, reject) => {
 		loading && uni.showLoading({title: 'loading'})
@@ -16,6 +18,7 @@ const baseRequest = async (url, method, data, loading = true) =>{
 				const res = successData.data
 				 uni.hideLoading()
 				if(successData.statusCode == 200){
+					// 业务逻辑，自行修改
 					if(res.resultCode == 'PA-G998'){
 						clearStorageSync()
 						useRouter('/pages/login/index', 'reLaunch')

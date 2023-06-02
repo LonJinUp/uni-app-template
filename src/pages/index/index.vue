@@ -16,6 +16,7 @@ export default {
 		}
 	},
 	onLoad() {
+		this.getUserinfo()
 		console.log(process.env.VUE_APP_MODE, '====VUE_APP_BASE')
 		console.log(process.env.VUE_APP_BASE, '====VUE_APP_BASE')
 	},
@@ -23,8 +24,7 @@ export default {
 	methods: {
 
 		async getUserinfo() {
-			let info = await info()
-			console.log('用户信息==', info)
+			let res = await info()
 		}
 	}
 }
