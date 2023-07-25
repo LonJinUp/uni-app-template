@@ -1,9 +1,18 @@
 
 import {toast, clearStorageSync, getStorageSync, useRouter} from './utils'
 import {BASE_URL} from '@/config/index'
+import RequestManager from '@/utils/requestManager.js'
 
 
-const baseRequest = async (url, method, data, loading = true) =>{
+const manager = new RequestManager()
+
+const baseRequest = async (url, method, data = {}, loading = true) =>{
+	let requestId = manager.generateId(method, url, data)
+	if(!requestId) {
+		console.log('重复请求')
+	}
+	if(!requestId)return false;
+	
 	const header = {}
 	header.token = getStorageSync('token') || ''
 	return new Promise((reslove, reject) => {
@@ -14,9 +23,12 @@ const baseRequest = async (url, method, data, loading = true) =>{
 			header: header,
 			timeout: 10000,
 			data: data || {},
+			complete: ()=>{
+				uni.hideLoading()
+				manager.deleteById(requestId)
+			},
 			success: (successData) => {
 				const res = successData.data
-				 uni.hideLoading()
 				if(successData.statusCode == 200){
 					// 业务逻辑，自行修改
 					if(res.resultCode == 'PA-G998'){
@@ -31,7 +43,6 @@ const baseRequest = async (url, method, data, loading = true) =>{
 				}
 			},
 			fail: (msg) => {
-				 uni.hideLoading()
 				toast('网络连接失败，请稍后重试')
 				reject(msg)
 			}

@@ -17,6 +17,10 @@ export default {
 	},
 	onLoad() {
 		this.getUserinfo()
+		this.getUserinfo()
+		setTimeout(()=>{
+			this.getUserinfo()
+		},4000)
 		console.log(process.env.VUE_APP_MODE, '====VUE_APP_BASE')
 		console.log(process.env.VUE_APP_BASE, '====VUE_APP_BASE')
 	},
