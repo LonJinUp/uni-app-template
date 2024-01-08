@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev:mp-weixin": "cross-env UNI_PLATFORM=mp-weixin vue-cli-service uni-build --watch --mode dev",
-    "build:mp-weixin": "cross-env UNI_PLATFORM=mp-weixin vue-cli-service uni-build --watch --mode prod"
+	  "build:wx-dev": "cross-env UNI_PLATFORM=mp-weixin vue-cli-service uni-build --watch --mode dev",
+    "build:mp-prod": "cross-env UNI_PLATFORM=mp-weixin vue-cli-service uni-build --watch --mode prod"
   },
   "dependencies": {
     "@dcloudio/uni-app": "^2.0.2-3061820230117002",

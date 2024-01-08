@@ -1,2 +1,2 @@
 
-export const BASE_URL = 'https://www.baidu.com'
+export const BASE_URL = process.env.VUE_APP_BASE

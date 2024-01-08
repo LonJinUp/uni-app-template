@@ -9,26 +9,26 @@
 
 <script>
 import { info } from '@/api/user.js'
+import { testApi } from '@/api/test.js'
 export default {
 	data() {
 		return {
 			title: 'Hello uni-app'
 		}
 	},
-	onLoad() {
+	async onLoad() {
+		this.test()
 		this.getUserinfo()
-		this.getUserinfo()
-		setTimeout(()=>{
-			this.getUserinfo()
-		},4000)
-		console.log(process.env.VUE_APP_MODE, '====VUE_APP_BASE')
-		console.log(process.env.VUE_APP_BASE, '====VUE_APP_BASE')
+
 	},
 
 	methods: {
-
 		async getUserinfo() {
 			let res = await info()
+		},
+
+		async test() {
+			let res = await testApi()
 		}
 	}
 }
