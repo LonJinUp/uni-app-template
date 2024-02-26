@@ -1,8 +1,7 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view>
-			<text class="title">{{ title }}</text>
+		<view class="title">
+			{{ title }}
 		</view>
 	</view>
 </template>
@@ -13,7 +12,7 @@ import { testApi } from '@/api/test.js'
 export default {
 	data() {
 		return {
-			title: 'Hello uni-app'
+			title: 'hello,uni-app-template'
 		}
 	},
 	async onLoad() {
@@ -34,27 +33,26 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+page {
+	width: 100%;
+	height: 100%;
+}
+
 .content {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-}
+	width: 100%;
+	height: 100%;
+	flex-wrap: wrap;
 
-.logo {
-	height: 200rpx;
-	width: 200rpx;
-	margin: 200rpx auto 50rpx auto;
-}
-
-.text-area {
-	display: flex;
-	justify-content: center;
-}
-
-.title {
-	font-size: 36rpx;
-	color: #8f8f94;
+	.title {
+		font-size: 30rpx;
+		text-align: center;
+		color: black;
+		letter-spacing: 1px;
+	}
 }
 </style>
