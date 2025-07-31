@@ -7,23 +7,19 @@ import RequestManager from '@/utils/requestManager.js'
 const manager = new RequestManager()
 
 const baseRequest = async (url, method, data = {}, loading = true) => {
-	let requestId = manager.generateId(method, url, data)
-	if (!requestId) {
-		console.log('重复请求')
-	}
+	let requestId = manager.generateId(method, url, data);
+	// 去除重复请求
 	if (!requestId) return false;
-
 	const header = {}
 	header.token = getStorageSync('token') || ''
 
-	let loadingPromise = loading ? new Promise((resolve) => {
+	// 显示 loading
+	if (loading) {
 		uni.showLoading({ title: 'loading' })
-		resolve()
-	}) : Promise.resolve()
+	}
 
-	return Promise.all([
-		loadingPromise,
-		new Promise((resolve, reject) => {
+	try {
+		const result = await new Promise((resolve, reject) => {
 			uni.request({
 				url: BASE_URL + url,
 				method: method || 'GET',
@@ -53,9 +49,13 @@ const baseRequest = async (url, method, data = {}, loading = true) => {
 				}
 			})
 		})
-	]).finally(() => {
-		uni.hideLoading()
-	});
+		
+		return result
+	} finally {
+		if (loading) {
+			uni.hideLoading()
+		}
+	}
 }
 
 
